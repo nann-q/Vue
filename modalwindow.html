@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+<body>
+  <div id="modal" class="modal">
+    <button v-on:click="openContent">開く</button>
+    <open-modal　v-show="showcontent" v-on:close="showcontent = false"></open-modal>
+  </div>
+  <script>
+    Vue.component('open-modal', {
+      template: `
+      <div class="modal_content" v-on:click.self="$emit('close')">
+        <div class="modal_content_inner" >
+          <p>モーダルウィンドウ</p>
+          <button v-on:click="$emit('close')">閉じる</button>
+        </div>
+      </div>
+      `,
+    });
+    var modal = new Vue({
+      el: '#modal',
+      data() {
+        return {
+          showcontent: false
+        }
+      },
+      methods: {
+        openContent: function () {
+          this.showcontent = true
+        },
+        closeContent: function () {
+          this.showcontent = false
+        },
+      }
+    })
+  </script>
+  <style>
+    .modal {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgb(212, 212, 212);
+    }
+    .modal_content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .modal_content_inner {
+      background-color: white;
+      text-align: center;
+      padding: 20px;
+      width: 50%;
+    }
+  </style>
+</body>
+
+
+</html>

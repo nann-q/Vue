@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="search">
+    <input type="text" v-model="keyword">
+    <table>
+      <tr v-for="(user,string) in list" v-bind:key="string">
+        <td v-text="user.name" ></td>
+      </tr>
+    </table>
+  </div>
+  <script>
+    new Vue({
+      el:'#search',
+      data:{
+        keyword:'',
+        users:[
+          {
+            name:'佐藤'
+          },
+          {
+            name:'伊藤'
+          },
+          {
+            name:'田中'
+          },
+          {
+            name:'鈴木'
+          },
+        ]
+      },
+      computed:{
+        list:function(){
+          var users=[];
+          for(var i in this.users){
+            var user=this.users[i];
+            if(user.name.indexOf(this.keyword) !== -1 ){
+              users.push(user)
+            }
+          }
+          return users;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
